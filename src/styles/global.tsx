@@ -56,13 +56,10 @@ a {
 	
 }
 html, body {
-	background: #FCFCFC;
 	height: 100%;
 }
-.root{
-	width:80%;
-	max-width:365px;
-	margin:16px auto;
+#root{
+height: 100%;
 }
 body, button {
 	font-family: 'poppins', sans-serif;
