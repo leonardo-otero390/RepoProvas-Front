@@ -5,27 +5,24 @@ import PasswordInput from "./PasswordInput";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as api from "../services/api";
-
-interface Props {
-  type: "login" | "signup";
-}
+import AuthTypes from "../interfaces/AuthTypes";
 
 interface ErrorState {
-  email: false | string;
-  password: false | string;
-  confirmPassword: false | string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
-export default function AuthForm({ type }: Props) {
+export default function AuthForm({ type }: AuthTypes) {
   const [values, setValues] = React.useState<AuthValues>({
     email: "",
     password: "",
     confirmPassword: "",
   });
   const initialErrorState: ErrorState = {
-    email: false,
-    password: false,
-    confirmPassword: false,
+    email: '',
+    password: '',
+    confirmPassword: '',
   };
   const [error, setError] = React.useState<ErrorState>(initialErrorState);
 
@@ -54,16 +51,16 @@ export default function AuthForm({ type }: Props) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(initialErrorState);
+    const emailRegex = new RegExp(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+    if (!emailRegex.test(values.email))
+      return setError({ ...error, email: "Email inválido" });
+    if (values.password === "")
+      return setError({ ...error, password: "Senha é um campo obrigatório" });
+
     if (type === "signup") {
-      const emailRegex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
-      if (!emailRegex.test(values.email))
-        return setError({ ...error, email: "Email inválido" });
-      if (values.password === "")
-        return setError({ ...error, password: "Senha é um campo obrigatório" });
       if (values.password !== values.confirmPassword) {
         return setError({ ...error, confirmPassword: "Senhas não conferem" });
       }
-      console.log(values);
       api
         .signUp(values)
         .then(() => navigate("/"))
@@ -71,6 +68,17 @@ export default function AuthForm({ type }: Props) {
           if (err.response.status === 409)
             return setError({ ...error, email: "Email já cadastrado" });
           alert(err.response.data);
+        });
+    } else {
+      api
+        .login({ email: values.email, password: values.password })
+        .then((res) => {
+          navigate("/");
+          localStorage.setItem("token", res.data.token);
+        })
+        .catch((err) => {
+          if (err.response.status === 401) alert("Email ou senha incorretos");
+          return setError({ ...error, password: " ", email: " " });
         });
     }
   };

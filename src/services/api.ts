@@ -7,3 +7,6 @@ const instance = axios.create({
 
 export const signUp = async (newUser: AuthValues) =>
   instance.post("/sign-up", newUser);
+
+export const login = async (loginUser: Omit<AuthValues, "confirmPassword">) =>
+  instance.post("/login", loginUser);

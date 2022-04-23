@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import AuthForm from "../components/AuthForm";
 import Logo from "../components/Logo";
+import AuthTypes from "../interfaces/AuthTypes";
 
-export default function SignUp() {
-
+export default function AuthPage({ type }: AuthTypes) {
   return (
     <Container>
       <Logo />
-      <AuthForm type="signup"/>
+      <AuthForm type={type} />
     </Container>
   );
 }

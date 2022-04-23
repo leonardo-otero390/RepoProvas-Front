@@ -1,14 +1,15 @@
 import React from "react";
 import GlobalStyle from "./styles/global";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignUp from "./pages/SignUp";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
   return (
     <Router>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<SignUp />} />
+        <Route path="/" element={<AuthPage type="login"/>} />
+        <Route path="/signup" element={<AuthPage type="signup"/>} />
       </Routes>
     </Router>
   );
