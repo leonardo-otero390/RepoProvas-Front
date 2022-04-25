@@ -74,7 +74,7 @@ export default function AuthForm({ type }: AuthTypes) {
         .login({ email: values.email, password: values.password })
         .then((res) => {
           localStorage.setItem("token", res.data.token);
-          navigate("/home");
+          navigate("/search/terms");
         })
         .catch((err) => {
           if (err.response.status === 401) alert("Email ou senha incorretos");

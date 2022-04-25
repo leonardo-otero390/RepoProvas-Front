@@ -11,7 +11,7 @@ export default function Header() {
   }
   return (
     <Container>
-      <button onClick={() => navigate("/home")}>
+      <button onClick={() => navigate("/search/terms")}>
         <Logo />
       </button>
       <button onClick={logOut}>
