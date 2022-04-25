@@ -13,8 +13,8 @@ interface Props {
 export default function TestAccordion({ tests }: Props) {
   return (
     <div>
-      {tests.map((test) => (
-        <Accordion >
+      {tests.map((test, index) => (
+        <Accordion key={index}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"

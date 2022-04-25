@@ -4,18 +4,26 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Terms } from "../interfaces/TermsTypes";
 import DisciplineAccordion from "./DisciplineAccordion";
+import * as api from "../services/api";
+import { Terms } from "../interfaces/TermsTypes";
 
 interface Props {
-  terms: Terms;
+  token: string;
 }
 
-export default function TermAccordion({ terms }: Props) {
+export default function TermAccordion({ token }: Props) {
+  const [terms, setTerms] = React.useState<Terms>([]);
+  React.useEffect(() => {
+    api.getTestsByDiscipline(token).then((response) => {
+      setTerms(response.data);
+    });
+  }, [token]);
+
   return (
     <div>
-      {terms.map((term) => (
-        <Accordion disabled={!term.disciplines.length}>
+      {terms.map((term, index) => (
+        <Accordion disabled={!term.disciplines.length} key={index}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"

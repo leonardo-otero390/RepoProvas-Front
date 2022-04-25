@@ -1,8 +1,8 @@
 import React from "react";
 import GlobalStyle from "./styles/global";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AuthPage from "./pages/AuthPage";
-import Home from "./pages/Home";
+import AuthPage from "./pages/Auth";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthPage type="login" />} />
         <Route path="/signup" element={<AuthPage type="signup" />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/search/:type" element={<Search />} />
       </Routes>
     </Router>
   );

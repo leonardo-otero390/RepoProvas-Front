@@ -1,26 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import React, { useEffect } from "react";
 import TermAccordion from "../components/TermAccordion";
-import * as api from "../services/api";
 
-export default function Home() {
-  const [terms, setTerms] = React.useState([]);
+export default function Search() {
+  let { type } = useParams();
+  if (type !== "terms" && type !== "teachers") type = "terms";
   const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("É necessário estar logado para acessar a página");
-      navigate("/");
-      return;
-    }
-    api.getTestsByDiscipline(token).then((response) => {
-      setTerms(response.data);
-    });
-  }, [navigate]);
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("É necessário estar logado para acessar a página");
+    navigate("/");
+    return <></>;
+  }
+
   return (
     <>
       <Header />
@@ -28,11 +23,21 @@ export default function Home() {
       <hr color="#C4C4C4" />
       <Container>
         <Stack spacing={16} direction="row">
-          <Button variant="contained">Disciplinas</Button>
-          <Button variant="outlined">Pessoa Instruturoa</Button>
+          <Button
+            variant={type === "terms" ? "contained" : "outlined"}
+            onClick={() => navigate("/search/terms")}
+          >
+            Disciplinas
+          </Button>
+          <Button
+            variant={type === "teachers" ? "contained" : "outlined"}
+            onClick={() => navigate("/search/teachers")}
+          >
+            Pessoa Instruturoa
+          </Button>
           <Button variant="outlined">Adicionar</Button>
         </Stack>
-        <TermAccordion terms={terms} />
+        {type === "terms" ? <TermAccordion token={token} /> : null}
       </Container>
     </>
   );

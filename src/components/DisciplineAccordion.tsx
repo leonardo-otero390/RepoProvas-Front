@@ -14,8 +14,8 @@ interface Props {
 export default function DisciplineAccordion({ disciplines }: Props) {
   return (
     <div>
-      {disciplines.map((discipline) => (
-        <Accordion disabled={!discipline.tests.length}>
+      {disciplines.map((discipline, index) => (
+        <Accordion disabled={!discipline.tests.length} key={index}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
