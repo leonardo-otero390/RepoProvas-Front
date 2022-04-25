@@ -22,3 +22,5 @@ export const login = async (loginUser: Omit<AuthValues, "confirmPassword">) =>
 export const getTestsByDiscipline = async (token: string) =>
   instance.get("/tests/disciplines", createAuthHeader(token));
 
+export const getTestsByTeacher = async (token: string) =>
+  instance.get("/teachers/categories/tests", createAuthHeader(token));

@@ -4,27 +4,28 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { DisciplineWithTests } from "../interfaces/TermsTypes";
-import TestAccordion from "./TestWithCategoryAccordion";
+import { Test } from "../interfaces/TermsTypes";
 
 interface Props {
-  disciplines: DisciplineWithTests[];
+  tests: Test[];
 }
 
-export default function DisciplineAccordion({ disciplines }: Props) {
+export default function TestWithCategoryAccordion({ tests }: Props) {
   return (
     <div>
-      {disciplines.map((discipline, index) => (
-        <Accordion disabled={!discipline.tests.length} key={index}>
+      {tests.map((test, index) => (
+        <Accordion key={index}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography>{discipline.name}</Typography>
+            <Typography>{test.category.name}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <TestAccordion tests={discipline.tests} />
+            <Typography>
+              {test.name} - {test.teacher.name}
+            </Typography>
           </AccordionDetails>
         </Accordion>
       ))}

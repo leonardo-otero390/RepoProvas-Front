@@ -4,28 +4,34 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Test } from "../interfaces/TermsTypes";
+import * as api from "../services/api";
+import { TeachersWithCategories } from "../interfaces/TeachersTypes";
+import CategoryAccordion from "./CategoryAccordion";
 
 interface Props {
-  tests: Test[];
+  token: string;
 }
 
-export default function TestAccordion({ tests }: Props) {
+export default function TeacherAccordion({ token }: Props) {
+  const [teachers, setTeachers] = React.useState<TeachersWithCategories>([]);
+  React.useEffect(() => {
+    api.getTestsByTeacher(token).then((response) => {
+      setTeachers(response.data);
+    });
+  }, [teachers, token]);
   return (
     <div>
-      {tests.map((test, index) => (
+      {teachers.map((teacher, index) => (
         <Accordion key={index}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography>{test.category.name}</Typography>
+            <Typography>{teacher.teacher.name}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              {test.name} - {test.teacher.name}
-            </Typography>
+            <CategoryAccordion categories={teacher.categories} />
           </AccordionDetails>
         </Accordion>
       ))}

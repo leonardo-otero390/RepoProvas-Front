@@ -1,12 +1,5 @@
-type Teacher = {
-  id: number;
-  name: string;
-};
-
-type Category = {
-  id: number;
-  name: string;
-};
+import { Category } from "./CategoriesTypes";
+import { Teacher } from "./TeachersTypes";
 
 export type Test = {
   category: Category;
@@ -16,14 +9,14 @@ export type Test = {
   pdfUrl: string;
 };
 
-export type Discipline = {
+export type DisciplineWithTests = {
   tests: Test[];
   id: number;
   name: string;
 };
 
 export type Terms = {
-  disciplines: Discipline[];
+  disciplines: DisciplineWithTests[];
   id: number;
   number: number;
 }[];

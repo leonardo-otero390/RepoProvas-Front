@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import TermAccordion from "../components/TermAccordion";
+import TeacherAccordion from "../components/TeacherAccordion";
 
 export default function Search() {
   let { type } = useParams();
@@ -37,7 +38,11 @@ export default function Search() {
           </Button>
           <Button variant="outlined">Adicionar</Button>
         </Stack>
-        {type === "terms" ? <TermAccordion token={token} /> : null}
+        {type === "terms" ? (
+          <TermAccordion token={token} />
+        ) : (
+          <TeacherAccordion token={token} />
+        )}
       </Container>
     </>
   );
