@@ -1,23 +1,18 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import TermAccordion from "../components/TermAccordion";
-import TeacherAccordion from "../components/TeacherAccordion";
 
-export default function Search() {
-  let { type } = useParams();
-  if (type !== "terms" && type !== "teachers") type = "terms";
+interface Props {
+  type: "disciplines" | "teachers";
+}
+
+export default function Dashboard({ type }: Props) {
+  if (type !== "disciplines" && type !== "teachers") type = "disciplines";
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-  if (!token) {
-    alert("É necessário estar logado para acessar a página");
-    navigate("/");
-    return <></>;
-  }
   const title =
-    type === "terms" ? "Buscar por disciplina" : "Buscar por professores";
+    type === "disciplines" ? "Buscar por disciplina" : "Buscar por professores";
 
   return (
     <>
@@ -27,24 +22,19 @@ export default function Search() {
       <Container>
         <Stack spacing={16} direction="row">
           <Button
-            variant={type === "terms" ? "contained" : "outlined"}
-            onClick={() => navigate("/search/terms")}
+            variant={type === "disciplines" ? "contained" : "outlined"}
+            onClick={() => navigate("/home")}
           >
             Disciplinas
           </Button>
           <Button
             variant={type === "teachers" ? "contained" : "outlined"}
-            onClick={() => navigate("/search/teachers")}
+            onClick={() => navigate("/home/teachers")}
           >
             Pessoa Instruturoa
           </Button>
           <Button variant="outlined">Adicionar</Button>
         </Stack>
-        {type === "terms" ? (
-          <TermAccordion token={token} />
-        ) : (
-          <TeacherAccordion token={token} />
-        )}
       </Container>
     </>
   );
