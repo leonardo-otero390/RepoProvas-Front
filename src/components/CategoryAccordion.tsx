@@ -4,19 +4,21 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { CategoryWithTestsByDisciplineId as Category } from "../interfaces/Category";
+import { CategoryWithTestsByDisciplineId as CategoryByD } from "../interfaces/Category";
+import { CategoryWithTestsByTeacherId as CategoryByT } from "../interfaces/Category";
+import { TestWithTDPartial as Test } from "../interfaces/Test";
 
 interface Props {
-  categories: Category[];
+  categories: CategoryByD[] | CategoryByT[];
 }
 
 export default function CategoryAccordion({ categories }: Props) {
   return (
-    <div>
+    <>
       {categories.map((category, index) => (
-        <>
+        <div key={index}>
           {category.tests.length ? (
-            <Accordion key={index}>
+            <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -25,20 +27,28 @@ export default function CategoryAccordion({ categories }: Props) {
                 <Typography>{category.name}</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {category.tests.map((test, index) => (
-                  <a href={test.pdfUrl} key={index}>
-                    <Typography>
-                      {test.name} - {test.teachersDisciplines.teachers.name}
-                    </Typography>
-                  </a>
-                ))}
+                {category.tests.map(
+                  ({ name, pdfUrl, teachersDisciplines }: Test, i) => (
+                    <a href={pdfUrl} key={i}>
+                      <Typography>
+                        {name} -{" "}
+                        {teachersDisciplines.teachers
+                          ? teachersDisciplines.teachers.name
+                          : null}
+                        {teachersDisciplines.disciplines
+                          ? teachersDisciplines.disciplines.name
+                          : null}
+                      </Typography>
+                    </a>
+                  )
+                )}
               </AccordionDetails>
             </Accordion>
           ) : (
             <></>
           )}
-        </>
+        </div>
       ))}
-    </div>
+    </>
   );
 }

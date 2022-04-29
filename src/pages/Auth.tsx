@@ -9,7 +9,7 @@ export default function AuthPage({ type }: AuthTypes) {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   useEffect(() => {
-    if (token) navigate("/search/terms");
+    if (token) navigate("/home");
   }, [token, navigate]);
   return (
     <Container>

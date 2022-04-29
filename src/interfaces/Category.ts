@@ -1,18 +1,14 @@
-import { Teacher } from "./Teacher";
+import { TestWithDiscipline, TestWithTeacher } from "./Test";
 
 interface Category {
   id: number;
   name: string;
 }
 
-interface TestWithTeacher {
-  id: number;
-  name: string;
-  pdfUrl: string;
-  teachersDisciplines: {
-    teachers: Teacher;
-  };
-}
 export interface CategoryWithTestsByDisciplineId extends Category {
   tests: TestWithTeacher[];
+}
+
+export interface CategoryWithTestsByTeacherId extends Category {
+  tests: TestWithDiscipline[];
 }
