@@ -5,7 +5,6 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import * as api from "../services/api";
-import { TeachersWithCategories } from "../interfaces/TeachersTypes";
 import CategoryAccordion from "./CategoryAccordion";
 
 interface Props {
@@ -13,15 +12,15 @@ interface Props {
 }
 
 export default function TeacherAccordion({ token }: Props) {
-  const [teachers, setTeachers] = React.useState<TeachersWithCategories>([]);
-  React.useEffect(() => {
-    api.getTestsByTeacher(token).then((response) => {
-      setTeachers(response.data);
-    });
-  }, [teachers, token]);
+  const [teachers, setTeachers] = React.useState<any>([]);
+  // React.useEffect(() => {
+  //   api.getTestsByTeacher(token).then((response) => {
+  //     setTeachers(response.data);
+  //   });
+  // }, [teachers, token]);
   return (
     <div>
-      {teachers.map((teacher, index) => (
+      {teachers.map((teacher: { teacher: { name: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }; categories: any[]; }, index: React.Key | null | undefined) => (
         <Accordion key={index}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

@@ -19,8 +19,20 @@ export const signUp = async (newUser: AuthValues) =>
 export const login = async (loginUser: Omit<AuthValues, "confirmPassword">) =>
   instance.post("/login", loginUser);
 
-export const getTestsByDiscipline = async (token: string) =>
-  instance.get("/tests/disciplines", createAuthHeader(token));
+export const getTerms = async (token: string) =>
+  instance.get("/terms", createAuthHeader(token));
 
-export const getTestsByTeacher = async (token: string) =>
-  instance.get("/teachers/categories/tests", createAuthHeader(token));
+export const getDisciplinesByTermId = async (termId: number, token: string) =>
+  instance.get(`/terms/${termId}/disciplines`, createAuthHeader(token));
+
+export const getTestsByDisciplineId = async (
+  disciplineId: number,
+  token: string
+) =>
+  instance.get(`/disciplines/${disciplineId}/tests`, createAuthHeader(token));
+
+export const getTeachers = async (token: string) =>
+  instance.get("/teachers", createAuthHeader(token));
+
+export const getTestsByTeacherId = async (teacherId: number, token: string) =>
+  instance.get(`/teachers/${teacherId}/tests`, createAuthHeader(token));

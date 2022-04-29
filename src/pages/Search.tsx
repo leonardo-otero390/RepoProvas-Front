@@ -16,11 +16,13 @@ export default function Search() {
     navigate("/");
     return <></>;
   }
+  const title =
+    type === "terms" ? "Buscar por disciplina" : "Buscar por professores";
 
   return (
     <>
       <Header />
-      <Title>Pesquise por disciplina</Title>
+      <Title>{title}</Title>
       <hr color="#C4C4C4" />
       <Container>
         <Stack spacing={16} direction="row">

@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AuthForm from "../components/AuthForm";
 import Logo from "../components/Logo";
 import AuthTypes from "../interfaces/AuthTypes";
 
 export default function AuthPage({ type }: AuthTypes) {
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (token) navigate("/search/terms");
+  }, [token, navigate]);
   return (
     <Container>
       <Logo />
