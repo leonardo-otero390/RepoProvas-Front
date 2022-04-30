@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { CategoryWithTestsByDisciplineId as CategoryByD } from "../interfaces/Category";
 import { CategoryWithTestsByTeacherId as CategoryByT } from "../interfaces/Category";
-import { TestWithTDPartial as Test } from "../interfaces/Test";
+import TestList from "./TestList";
 
 interface Props {
   categories: CategoryByD[] | CategoryByT[];
@@ -27,21 +27,7 @@ export default function CategoryAccordion({ categories }: Props) {
                 <Typography>{category.name}</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {category.tests.map(
-                  ({ name, pdfUrl, teachersDisciplines }: Test, i) => (
-                    <a href={pdfUrl} key={i}>
-                      <Typography>
-                        {name} -{" "}
-                        {teachersDisciplines.teachers
-                          ? teachersDisciplines.teachers.name
-                          : null}
-                        {teachersDisciplines.disciplines
-                          ? teachersDisciplines.disciplines.name
-                          : null}
-                      </Typography>
-                    </a>
-                  )
-                )}
+                <TestList tests={category.tests} />
               </AccordionDetails>
             </Accordion>
           ) : (

@@ -5,6 +5,7 @@ interface Test {
   id: number;
   name: string;
   pdfUrl: string;
+  views: number;
 }
 
 export interface TestWithTeacher extends Test {

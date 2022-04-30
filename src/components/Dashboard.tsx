@@ -38,7 +38,7 @@ export default function Dashboard({ type }: Props) {
             variant={type === "teachers" ? "contained" : "outlined"}
             onClick={() => navigate("/home/teachers")}
           >
-            Pessoa Instruturoa
+            Pessoa Instrutora
           </Button>
           <Button variant="outlined">Adicionar</Button>
         </Stack>

@@ -47,3 +47,6 @@ export const getTeachersByName = async ({ name, token }: NameSearchParams) =>
 
 export const getDisciplinesByName = async ({ name, token }: NameSearchParams) =>
   instance.get(`/disciplines?name=${name}`, createAuthHeader(token));
+
+export const incrementViews = async (testId: number, token: string) =>
+  instance.patch(`/tests/${testId}/views`, {}, createAuthHeader(token));
