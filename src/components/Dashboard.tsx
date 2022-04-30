@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import Header from "../components/Header";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";

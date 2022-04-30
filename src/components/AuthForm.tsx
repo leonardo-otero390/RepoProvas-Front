@@ -6,6 +6,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as api from "../services/api";
 import AuthTypes from "../interfaces/AuthTypes";
+import useAuth from "../hooks/useAuth";
 
 interface ErrorState {
   email: string;
@@ -14,15 +15,16 @@ interface ErrorState {
 }
 
 export default function AuthForm({ type }: AuthTypes) {
+  const { logIn } = useAuth();
   const [values, setValues] = React.useState<AuthValues>({
     email: "",
     password: "",
     confirmPassword: "",
   });
   const initialErrorState: ErrorState = {
-    email: '',
-    password: '',
-    confirmPassword: '',
+    email: "",
+    password: "",
+    confirmPassword: "",
   };
   const [error, setError] = React.useState<ErrorState>(initialErrorState);
 
@@ -73,7 +75,7 @@ export default function AuthForm({ type }: AuthTypes) {
       api
         .login({ email: values.email, password: values.password })
         .then((res) => {
-          localStorage.setItem("token", res.data.token);
+          logIn(res.data.token);
           navigate("/home");
         })
         .catch((err) => {

@@ -2,11 +2,13 @@ import Logo from "./Logo";
 import LogoutIcon from "@mui/icons-material/Logout";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function Header() {
+  const { logOut } = useAuth();
   const navigate = useNavigate();
-  function logOut() {
-    localStorage.removeItem("token");
+  function handlelogOut() {
+    logOut();
     navigate("/");
   }
   return (
@@ -14,7 +16,7 @@ export default function Header() {
       <button onClick={() => navigate("/search/terms")}>
         <Logo />
       </button>
-      <button onClick={logOut}>
+      <button onClick={handlelogOut}>
         <LogoutIcon sx={{ fontSize: 48 }} />
       </button>
     </Container>

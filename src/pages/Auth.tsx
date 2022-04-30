@@ -3,14 +3,19 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AuthForm from "../components/AuthForm";
 import Logo from "../components/Logo";
+import useAuth from "../hooks/useAuth";
 import AuthTypes from "../interfaces/AuthTypes";
 
 export default function AuthPage({ type }: AuthTypes) {
   const token = localStorage.getItem("token");
+  const { logIn } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    if (token) navigate("/home");
-  }, [token, navigate]);
+    if (token) {
+      logIn(token);
+      navigate("/home");
+    }
+  }, [token, navigate, logIn]);
   return (
     <Container>
       <Logo />
