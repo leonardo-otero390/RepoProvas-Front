@@ -26,7 +26,8 @@ export default function SearchInput({ setName, placeholder }: Props) {
 
     const debounceTimeout = 300;
 
-    if (value.length < 2) return;
+    if (event.target.value.length <= 2) return setName("");
+
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
       setName(event.target.value);

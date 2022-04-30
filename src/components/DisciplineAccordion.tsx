@@ -1,4 +1,3 @@
-import * as React from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -8,20 +7,24 @@ import CategoryAccordion from "./CategoryAccordion";
 import { Discipline } from "../interfaces/Disicpline";
 import { CategoryWithTestsByDisciplineId as Category } from "../interfaces/Category";
 import * as api from "../services/api";
+import useAuth from "../hooks/useAuth";
+import { useState, SyntheticEvent } from "react";
 
 interface Props {
   disciplines: Discipline[];
-  token: string;
 }
 
-export default function DisciplineAccordion({ disciplines, token }: Props) {
-  const [selectedDisciplineId, setSelectedDisciplineId] = React.useState<
+export default function DisciplineAccordion({ disciplines }: Props) {
+  const [selectedDisciplineId, setSelectedDisciplineId] = useState<
     number | false
   >(false);
-  const [categories, setCategories] = React.useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const { token } = useAuth();
+  if (!token) return <></>;
 
   const handleChange =
-    (id: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    (id: number) => (event: SyntheticEvent, isExpanded: boolean) => {
       if (isExpanded) {
         api.getTestsByDisciplineId(id, token).then((response) => {
           setCategories(response.data);

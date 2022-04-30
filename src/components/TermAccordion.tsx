@@ -1,4 +1,3 @@
-import * as React from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -8,26 +7,26 @@ import DisciplineAccordion from "./DisciplineAccordion";
 import * as api from "../services/api";
 import { Term } from "../interfaces/Terms";
 import { Discipline } from "../interfaces/Disicpline";
+import useAuth from "../hooks/useAuth";
+import { useState, useEffect, SyntheticEvent } from "react";
 
-interface Props {
-  token: string;
-}
+export default function TermAccordion() {
+  const { token } = useAuth();
 
-export default function TermAccordion({ token }: Props) {
-  const [terms, setTerms] = React.useState<Term[]>([]);
-  const [selectedTermId, setSelectedTermId] = React.useState<number | false>(
-    false
-  );
-  const [disciplines, setDisciplines] = React.useState<Discipline[]>([]);
+  const [terms, setTerms] = useState<Term[]>([]);
+  const [selectedTermId, setSelectedTermId] = useState<number | false>(false);
+  const [disciplines, setDisciplines] = useState<Discipline[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (!token) return;
     api.getTerms(token).then((response) => {
       setTerms(response.data);
     });
   }, [token]);
 
   const handleChange =
-    (id: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    (id: number) => (event: SyntheticEvent, isExpanded: boolean) => {
+      if (!token) return;
       if (isExpanded) {
         api.getDisciplinesByTermId(id, token).then((response) => {
           setDisciplines(response.data);
@@ -55,7 +54,7 @@ export default function TermAccordion({ token }: Props) {
           </AccordionSummary>
           <AccordionDetails>
             {disciplines.length ? (
-              <DisciplineAccordion disciplines={disciplines} token={token} />
+              <DisciplineAccordion disciplines={disciplines} />
             ) : (
               <Typography>Não há disciplinas para exibir</Typography>
             )}

@@ -8,26 +8,31 @@ import * as api from "../services/api";
 import CategoryAccordion from "./CategoryAccordion";
 import { Teacher } from "../interfaces/Teacher";
 import { CategoryWithTestsByTeacherId as Category } from "../interfaces/Category";
+import useAuth from "../hooks/useAuth";
+import useGlobal from "../hooks/useGlobal";
 
-interface Props {
-  token: string;
-}
-
-export default function TeacherAccordion({ token }: Props) {
+export default function TeacherAccordion() {
+  const { token } = useAuth();
+  const { name } = useGlobal();
   const [teachers, setTeachers] = React.useState<Teacher[]>([]);
   const [selectedTeacherId, setSelectedTeacherId] = React.useState<
     number | false
   >(false);
   const [categories, setCategories] = React.useState<Category[]>([]);
-
   React.useEffect(() => {
-    api.getTeachers(token).then((response) => {
-      setTeachers(response.data);
-    });
-  }, [teachers, token]);
+    if (!token) return;
+    if (name) {
+      api
+        .getTeachersByName({ name, token })
+        .then((res) => setTeachers(res.data));
+    } else {
+      api.getTeachers(token).then((res) => setTeachers(res.data));
+    }
+  }, [name, token]);
 
   const handleChange =
     (id: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      if (!token) return;
       if (isExpanded) {
         api.getTestsByTeacherId(id, token).then((response) => {
           setCategories(response.data);

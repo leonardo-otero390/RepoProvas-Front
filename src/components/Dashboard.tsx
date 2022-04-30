@@ -3,8 +3,8 @@ import Header from "../components/Header";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import SearchInput from "./SearchInput";
-import { useState } from "react";
 import { Box } from "@mui/material";
+import useGlobal from "../hooks/useGlobal";
 
 interface Props {
   type: "disciplines" | "teachers";
@@ -16,7 +16,7 @@ const styles = {
 };
 
 export default function Dashboard({ type }: Props) {
-  const [name, setName] = useState("");
+  const { setName } = useGlobal();
   if (type !== "disciplines" && type !== "teachers") type = "disciplines";
   const navigate = useNavigate();
   const placeholder =

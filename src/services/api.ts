@@ -36,3 +36,11 @@ export const getTeachers = async (token: string) =>
 
 export const getTestsByTeacherId = async (teacherId: number, token: string) =>
   instance.get(`/teachers/${teacherId}/tests`, createAuthHeader(token));
+
+export const getTeachersByName = async ({
+  name,
+  token,
+}: {
+  name: string;
+  token: string;
+}) => instance.get(`/teachers?name=${name}`, createAuthHeader(token));
