@@ -37,10 +37,13 @@ export const getTeachers = async (token: string) =>
 export const getTestsByTeacherId = async (teacherId: number, token: string) =>
   instance.get(`/teachers/${teacherId}/tests`, createAuthHeader(token));
 
-export const getTeachersByName = async ({
-  name,
-  token,
-}: {
+interface NameSearchParams {
   name: string;
   token: string;
-}) => instance.get(`/teachers?name=${name}`, createAuthHeader(token));
+}
+
+export const getTeachersByName = async ({ name, token }: NameSearchParams) =>
+  instance.get(`/teachers?name=${name}`, createAuthHeader(token));
+
+export const getDisciplinesByName = async ({ name, token }: NameSearchParams) =>
+  instance.get(`/disciplines?name=${name}`, createAuthHeader(token));
