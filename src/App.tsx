@@ -5,6 +5,7 @@ import AuthPage from "./pages/Auth";
 import Home from "./pages/Home";
 import { AuthProvider } from "./contexts/AuthContext";
 import { GlobalProvider } from "./contexts/GlobalContext";
+import AddTest from "./pages/AddTest";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/signup" element={<AuthPage type="signup" />} />
             <Route path="/home" element={<Home type="disciplines" />} />
             <Route path="/home/teachers" element={<Home type="teachers" />} />
+            <Route path="/add" element={<AddTest />} />
           </Routes>
         </Router>
       </GlobalProvider>
