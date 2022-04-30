@@ -4,12 +4,12 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DisciplineAccordion from "./DisciplineAccordion";
-import * as api from "../services/api";
-import { Term } from "../interfaces/Terms";
-import { Discipline } from "../interfaces/Disicpline";
-import useAuth from "../hooks/useAuth";
+import * as api from "../../../services/api";
+import { Term } from "../../../interfaces/Terms";
+import { Discipline } from "../../../interfaces/Disicpline";
+import useAuth from "../../../hooks/useAuth";
 import { useState, useEffect, SyntheticEvent } from "react";
-import useGlobal from "../hooks/useGlobal";
+import useGlobal from "../../../hooks/useGlobal";
 
 export default function TermAccordion() {
   const { token } = useAuth();

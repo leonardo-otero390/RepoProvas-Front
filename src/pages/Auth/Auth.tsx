@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import AuthForm from "../components/AuthForm";
-import Logo from "../components/Logo";
-import useAuth from "../hooks/useAuth";
-import AuthTypes from "../interfaces/AuthTypes";
+import Form from "./components/Form";
+import Logo from "../../components/Logo";
+import useAuth from "../../hooks/useAuth";
+import AuthTypes from "../../interfaces/AuthTypes";
 
 export default function AuthPage({ type }: AuthTypes) {
   const token = localStorage.getItem("token");
@@ -19,7 +19,7 @@ export default function AuthPage({ type }: AuthTypes) {
   return (
     <Container>
       <Logo />
-      <AuthForm type={type} />
+      <Form type={type} />
     </Container>
   );
 }

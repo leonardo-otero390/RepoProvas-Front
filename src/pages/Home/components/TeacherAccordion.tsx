@@ -4,12 +4,12 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import * as api from "../services/api";
+import * as api from "../../../services/api";
 import CategoryAccordion from "./CategoryAccordion";
-import { Teacher } from "../interfaces/Teacher";
-import { CategoryWithTestsByTeacherId as Category } from "../interfaces/Category";
-import useAuth from "../hooks/useAuth";
-import useGlobal from "../hooks/useGlobal";
+import { Teacher } from "../../../interfaces/Teacher";
+import { CategoryWithTestsByTeacherId as Category } from "../../../interfaces/Category";
+import useAuth from "../../../hooks/useAuth";
+import useGlobal from "../../../hooks/useGlobal";
 
 export default function TeacherAccordion() {
   const { token } = useAuth();

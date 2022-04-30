@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
-import useAuth from "../hooks/useAuth";
-import { TestWithTDPartial as Test } from "../interfaces/Test";
-import * as api from "../services/api";
+import useAuth from "../../../hooks/useAuth";
+import { TestWithTDPartial as Test } from "../../../interfaces/Test";
+import * as api from "../../../services/api";
 
 interface Props {
   tests: Test[];

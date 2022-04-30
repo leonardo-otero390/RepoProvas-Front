@@ -4,10 +4,10 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CategoryAccordion from "./CategoryAccordion";
-import { Discipline } from "../interfaces/Disicpline";
-import { CategoryWithTestsByDisciplineId as Category } from "../interfaces/Category";
-import * as api from "../services/api";
-import useAuth from "../hooks/useAuth";
+import { Discipline } from "../../../interfaces/Disicpline";
+import { CategoryWithTestsByDisciplineId as Category } from "../../../interfaces/Category";
+import * as api from "../../../services/api";
+import useAuth from "../../../hooks/useAuth";
 import { useState, SyntheticEvent } from "react";
 
 interface Props {

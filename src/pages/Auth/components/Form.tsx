@@ -1,12 +1,12 @@
 import { Button, TextField } from "@mui/material";
-import AuthValues from "../interfaces/AuthValues";
+import AuthValues from "../../../interfaces/AuthValues";
 import styled from "styled-components";
 import PasswordInput from "./PasswordInput";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as api from "../services/api";
-import AuthTypes from "../interfaces/AuthTypes";
-import useAuth from "../hooks/useAuth";
+import * as api from "../../../services/api";
+import AuthTypes from "../../../interfaces/AuthTypes";
+import useAuth from "../../../hooks/useAuth";
 
 interface ErrorState {
   email: string;
@@ -14,7 +14,7 @@ interface ErrorState {
   confirmPassword: string;
 }
 
-export default function AuthForm({ type }: AuthTypes) {
+export default function Form({ type }: AuthTypes) {
   const { logIn } = useAuth();
   const [values, setValues] = React.useState<AuthValues>({
     email: "",

@@ -4,8 +4,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { CategoryWithTestsByDisciplineId as CategoryByD } from "../interfaces/Category";
-import { CategoryWithTestsByTeacherId as CategoryByT } from "../interfaces/Category";
+import { CategoryWithTestsByDisciplineId as CategoryByD } from "../../../interfaces/Category";
+import { CategoryWithTestsByTeacherId as CategoryByT } from "../../../interfaces/Category";
 import TestList from "./TestList";
 
 interface Props {

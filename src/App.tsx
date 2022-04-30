@@ -1,8 +1,8 @@
 import React from "react";
 import GlobalStyle from "./styles/global";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AuthPage from "./pages/Auth";
-import Home from "./pages/Home";
+import AuthPage from "./pages/Auth/Auth";
+import Home from "./pages/Home/Home";
 import { AuthProvider } from "./contexts/AuthContext";
 import { GlobalProvider } from "./contexts/GlobalContext";
 import AddTest from "./pages/AddTest";
