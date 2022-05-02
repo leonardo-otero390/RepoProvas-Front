@@ -5,7 +5,7 @@ import AuthPage from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
 import { AuthProvider } from "./contexts/AuthContext";
 import { GlobalProvider } from "./contexts/GlobalContext";
-import AddTest from "./pages/AddTest";
+import AddTest from "./pages/AddTest/AddTest";
 
 function App() {
   return (

@@ -8,6 +8,12 @@ interface Test {
   views: number;
 }
 
+export interface NewTest extends Omit<Test, "id"|"views"> {
+  categoryId: number;
+  disciplineId: number;
+  teacherId: number;
+}
+
 export interface TestWithTeacher extends Test {
   teachersDisciplines: {
     teachers: Teacher;

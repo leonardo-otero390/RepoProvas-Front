@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DisciplineAccordion from "./DisciplineAccordion";
 import * as api from "../../../services/api";
+import * as disciplineService from "../../../services/disciplineService";
 import { Term } from "../../../interfaces/Terms";
 import { Discipline } from "../../../interfaces/Disicpline";
 import useAuth from "../../../hooks/useAuth";
@@ -21,8 +22,8 @@ export default function TermAccordion() {
   useEffect(() => {
     if (!token) return;
     if (name) {
-      api
-        .getDisciplinesByName({ name, token })
+      disciplineService
+        .getByName({ name, token })
         .then((res) => setDisciplines(res.data));
     } else {
       api.getTerms(token).then((response) => {
@@ -35,7 +36,7 @@ export default function TermAccordion() {
     (id: number) => (event: SyntheticEvent, isExpanded: boolean) => {
       if (!token) return;
       if (isExpanded) {
-        api.getDisciplinesByTermId(id, token).then((response) => {
+        disciplineService.getByTermId(id, token).then((response) => {
           setDisciplines(response.data);
         });
         setSelectedTermId(id);

@@ -1,11 +1,12 @@
 import axios from "axios";
 import AuthValues from "../interfaces/AuthValues";
+import { NewTest } from "../interfaces/Test";
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: "http://localhost:4000",
 });
 
-const createAuthHeader = (token: string) => {
+export const createAuthHeader = (token: string) => {
   return {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -22,31 +23,20 @@ export const login = async (loginUser: Omit<AuthValues, "confirmPassword">) =>
 export const getTerms = async (token: string) =>
   instance.get("/terms", createAuthHeader(token));
 
-export const getDisciplinesByTermId = async (termId: number, token: string) =>
-  instance.get(`/terms/${termId}/disciplines`, createAuthHeader(token));
-
 export const getTestsByDisciplineId = async (
   disciplineId: number,
   token: string
 ) =>
   instance.get(`/disciplines/${disciplineId}/tests`, createAuthHeader(token));
 
-export const getTeachers = async (token: string) =>
-  instance.get("/teachers", createAuthHeader(token));
-
 export const getTestsByTeacherId = async (teacherId: number, token: string) =>
   instance.get(`/teachers/${teacherId}/tests`, createAuthHeader(token));
 
-interface NameSearchParams {
-  name: string;
-  token: string;
-}
-
-export const getTeachersByName = async ({ name, token }: NameSearchParams) =>
-  instance.get(`/teachers?name=${name}`, createAuthHeader(token));
-
-export const getDisciplinesByName = async ({ name, token }: NameSearchParams) =>
-  instance.get(`/disciplines?name=${name}`, createAuthHeader(token));
-
 export const incrementViews = async (testId: number, token: string) =>
   instance.patch(`/tests/${testId}/views`, {}, createAuthHeader(token));
+
+export const getCategories = async (token: string) =>
+  instance.get("/categories", createAuthHeader(token));
+
+export const postTest = async (test: NewTest, token: string) =>
+  instance.post("/tests", test, createAuthHeader(token));

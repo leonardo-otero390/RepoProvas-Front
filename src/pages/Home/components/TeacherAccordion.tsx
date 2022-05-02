@@ -5,6 +5,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import * as api from "../../../services/api";
+import * as teacherService from "../../../services/teacherService";
 import CategoryAccordion from "./CategoryAccordion";
 import { Teacher } from "../../../interfaces/Teacher";
 import { CategoryWithTestsByTeacherId as Category } from "../../../interfaces/Category";
@@ -22,11 +23,11 @@ export default function TeacherAccordion() {
   React.useEffect(() => {
     if (!token) return;
     if (name) {
-      api
-        .getTeachersByName({ name, token })
+      teacherService
+        .getByName({ name, token })
         .then((res) => setTeachers(res.data));
     } else {
-      api.getTeachers(token).then((res) => setTeachers(res.data));
+      teacherService.get(token).then((res) => setTeachers(res.data));
     }
   }, [name, token]);
 

@@ -1,6 +1,6 @@
 import { TestWithDiscipline, TestWithTeacher } from "./Test";
 
-interface Category {
+export interface Category {
   id: number;
   name: string;
 }
