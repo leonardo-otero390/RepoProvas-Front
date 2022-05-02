@@ -57,6 +57,7 @@ export default function AddTest() {
         .getByDisciplineId(values.disciplineId, token)
         .then((res) => setLists({ ...lists, teachers: res.data }));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, values.categoryId, values.disciplineId]);
 
   const handleChange =

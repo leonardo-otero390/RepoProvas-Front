@@ -17,9 +17,10 @@ interface Props {
     | undefined;
   value: string;
   error: false | string;
+  label: string;
 }
 
-export default function PasswordInput({ sx, onChange, value, error }: Props) {
+export default function PasswordInput({ sx, onChange, value, error,label }: Props) {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -31,7 +32,7 @@ export default function PasswordInput({ sx, onChange, value, error }: Props) {
   };
   return (
     <FormControl sx={sx} variant="outlined">
-      <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+      <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
       <OutlinedInput
         type={showPassword ? "text" : "password"}
         value={value}
@@ -49,7 +50,7 @@ export default function PasswordInput({ sx, onChange, value, error }: Props) {
             </IconButton>
           </InputAdornment>
         }
-        label="Password"
+        label={label}
       />
       <FormHelperText error={!!error}>{error}</FormHelperText>
     </FormControl>

@@ -2,7 +2,7 @@ import { Button, TextField } from "@mui/material";
 import AuthValues from "../../../interfaces/AuthValues";
 import styled from "styled-components";
 import PasswordInput from "./PasswordInput";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as api from "../../../services/api";
 import AuthTypes from "../../../interfaces/AuthTypes";
@@ -14,9 +14,13 @@ interface ErrorState {
   confirmPassword: string;
 }
 
+interface ValuesState extends AuthValues {
+  confirmPassword: string;
+}
+
 export default function Form({ type }: AuthTypes) {
   const { logIn } = useAuth();
-  const [values, setValues] = React.useState<AuthValues>({
+  const [values, setValues] = useState<ValuesState>({
     email: "",
     password: "",
     confirmPassword: "",
@@ -26,7 +30,7 @@ export default function Form({ type }: AuthTypes) {
     password: "",
     confirmPassword: "",
   };
-  const [error, setError] = React.useState<ErrorState>(initialErrorState);
+  const [error, setError] = useState<ErrorState>(initialErrorState);
 
   const navigate = useNavigate();
 
@@ -45,7 +49,7 @@ export default function Form({ type }: AuthTypes) {
   };
 
   const handleChange =
-    (prop: keyof AuthValues) =>
+    (prop: keyof ValuesState) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setValues({ ...values, [prop]: event.target.value });
     };
@@ -64,7 +68,7 @@ export default function Form({ type }: AuthTypes) {
         return setError({ ...error, confirmPassword: "Senhas não conferem" });
       }
       api
-        .signUp(values)
+        .signUp({ email: values.email, password: values.password })
         .then(() => navigate("/"))
         .catch((err) => {
           if (err.response.status === 409)
@@ -106,6 +110,7 @@ export default function Form({ type }: AuthTypes) {
           helperText={error.email}
         />
         <PasswordInput
+          label="Senha"
           onChange={handleChange("password")}
           sx={styles.input}
           value={values.password}
@@ -113,6 +118,7 @@ export default function Form({ type }: AuthTypes) {
         />
         {type === "signup" ? (
           <PasswordInput
+            label="Confirmar senha"
             onChange={handleChange("confirmPassword")}
             sx={styles.input}
             value={values.confirmPassword}
