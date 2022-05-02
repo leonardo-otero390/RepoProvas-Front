@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as api from "../../../services/api";
 import AuthTypes from "../../../interfaces/AuthTypes";
 import useAuth from "../../../hooks/useAuth";
+import useAlert from "../../../hooks/useAlert";
 
 interface ErrorState {
   email: string;
@@ -20,6 +21,8 @@ interface ValuesState extends AuthValues {
 
 export default function Form({ type }: AuthTypes) {
   const { logIn } = useAuth();
+  const { setMessage } = useAlert();
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState<ValuesState>({
     email: "",
     password: "",
@@ -57,6 +60,7 @@ export default function Form({ type }: AuthTypes) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(initialErrorState);
+    setLoading(true);
     const emailRegex = new RegExp(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
     if (!emailRegex.test(values.email))
       return setError({ ...error, email: "Email inválido" });
@@ -69,7 +73,13 @@ export default function Form({ type }: AuthTypes) {
       }
       api
         .signUp({ email: values.email, password: values.password })
-        .then(() => navigate("/"))
+        .then(() => {
+          setMessage({
+            type: "success",
+            text: "Cadastro realizado com sucesso",
+          });
+          navigate("/");
+        })
         .catch((err) => {
           if (err.response.status === 409)
             return setError({ ...error, email: "Email já cadastrado" });
@@ -80,6 +90,7 @@ export default function Form({ type }: AuthTypes) {
         .login({ email: values.email, password: values.password })
         .then((res) => {
           logIn(res.data.token);
+          setMessage({ type: "success", text: "Login realizado com sucesso" });
           navigate("/home");
         })
         .catch((err) => {
@@ -87,6 +98,7 @@ export default function Form({ type }: AuthTypes) {
           return setError({ ...error, password: " ", email: " " });
         });
     }
+    setLoading(false);
   };
 
   return (
@@ -128,8 +140,8 @@ export default function Form({ type }: AuthTypes) {
       </Inputs>
       <Actions>
         <Link to={texts.linkTo}>{texts.linkText}</Link>
-        <Button type="submit" variant="contained">
-          {texts.buttonText}
+        <Button type="submit" variant="contained" disabled={loading}>
+          {loading ? "Carregando" : texts.buttonText}
         </Button>
       </Actions>
     </Container>

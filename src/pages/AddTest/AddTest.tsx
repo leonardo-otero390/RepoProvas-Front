@@ -10,6 +10,7 @@ import useAuth from "../../hooks/useAuth";
 import DisciplineSelect from "./components/DisciplineSelect";
 import TeacherSelect from "./components/TeacherSelect";
 import validateUrl from "../../services/validateUrl";
+import useAlert from "../../hooks/useAlert";
 
 const styles = {
   container: {
@@ -27,6 +28,7 @@ const styles = {
 };
 
 export default function AddTest() {
+  const { setMessage } = useAlert();
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState<NewTest>({
     name: "",
@@ -57,7 +59,7 @@ export default function AddTest() {
         .getByDisciplineId(values.disciplineId, token)
         .then((res) => setLists({ ...lists, teachers: res.data }));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, values.categoryId, values.disciplineId]);
 
   const handleChange =
@@ -75,8 +77,10 @@ export default function AddTest() {
     setLoading(true);
     api
       .postTest(values, token)
-      .then(() => alert("Test criado com sucesso!"))
-      .catch(() => alert("Erro ao criar teste"))
+      .then(() =>
+        setMessage({ type: "success", text: "Teste criado com sucesso" })
+      )
+      .catch(() => setMessage({ type: "error", text: "Erro ao criar o teste" }))
       .finally(() => setLoading(false));
   };
 
