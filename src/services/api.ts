@@ -2,8 +2,13 @@ import axios from "axios";
 import AuthValues from "../interfaces/AuthValues";
 import { NewTest } from "../interfaces/Test";
 
+const baseURL =
+  process.env.REACT_APP_API_URL === "dev"
+    ? "http://localhost:5000"
+    : "https://repoprovas390.herokuapp.com/";
+
 export const instance = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL,
 });
 
 export const createAuthHeader = (token: string) => {
@@ -15,10 +20,10 @@ export const createAuthHeader = (token: string) => {
 };
 
 export const signUp = async (newUser: AuthValues) =>
-  instance.post("/sign-up", newUser);
+  instance.post("/auth/signup", newUser);
 
 export const login = async (loginUser: AuthValues) =>
-  instance.post("/login", loginUser);
+  instance.post("/auth/login", loginUser);
 
 export const getTerms = async (token: string) =>
   instance.get("/terms", createAuthHeader(token));
